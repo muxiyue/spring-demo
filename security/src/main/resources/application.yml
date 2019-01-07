@@ -1,0 +1,30 @@
+debug: true
+server:
+  port: 9999
+
+security:
+  user:
+    password: user
+  ignored: /,/favicon.ico,/index.html,/home.html,/dashboard.html,/js/**,/css/**,/webjars/**
+#  sessions: ALWAYS
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+    com.netflix.discovery: 'OFF'
+
+spring:
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+server.session:
+  persistent: true
+  store-dir: /tmp/tomcat_session
+
+#tomcat重启的时候会把session写入到一个文件，
+#  待启动后读取这个文件，使session保留，如果需要设置重启服务器的时候使session失效，
+#  可以通过修改配置文件"conf/context.xml"  ，去掉<Manager pathname="" />和<Valve className="org.apache.catalina.valves.CometConnectionManagerValve" />的注释，
+#  然后删除work文件夹，再重启服务器的时候，就会不保留session。
