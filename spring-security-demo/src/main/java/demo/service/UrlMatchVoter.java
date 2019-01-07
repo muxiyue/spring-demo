@@ -1,4 +1,4 @@
-package demo.config;
+package demo.service;
 
 import demo.model.UrlGrantedAuthority;
 import org.springframework.security.access.AccessDecisionVoter;
@@ -11,6 +11,14 @@ import org.springframework.util.StringUtils;
 
 import java.util.Collection;
 
+/**
+ *
+ * @Description: 增加一个授权逻辑投票项，根据url和httpmethod判断权限。
+ *
+ * @auther: csp
+ * @date:  2019/1/7 下午10:03
+ *
+ */
 public class UrlMatchVoter implements AccessDecisionVoter<Object> {
 
 

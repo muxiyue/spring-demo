@@ -3,9 +3,9 @@ server:
   port: 9999
 
 security:
-  user:
-    password: user
-  ignored: /,/favicon.ico,/index.html,/home.html,/dashboard.html,/js/**,/css/**,/webjars/**
+#  user:
+#    password: user
+#  ignored: /,/favicon.ico,/index.html,/home.html,/dashboard.html,/js/**,/css/**,/webjars/**
 #  sessions: ALWAYS
 
 logging:

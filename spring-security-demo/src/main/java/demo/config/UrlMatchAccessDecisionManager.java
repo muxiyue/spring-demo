@@ -12,6 +12,14 @@ import org.springframework.util.StringUtils;
 
 import java.util.Collection;
 
+/**
+ *
+ * @Description: 自定义AccessDecisionManager，通过url和httpmethod拦截权限
+ *
+ * @auther: csp
+ * @date:  2019/1/7 下午9:59
+ *
+ */
 public class UrlMatchAccessDecisionManager implements AccessDecisionManager {
 
 
@@ -29,11 +37,6 @@ public class UrlMatchAccessDecisionManager implements AccessDecisionManager {
             throw new AccessDeniedException("无权限！");
         }
 
-//        // 兼容下，用并的关系吧。两种场景都要满足，实际场景自己调整。
-//        super.decide(authentication, object, attributes);
-
-
-
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
 
         // 请求路径
@@ -43,6 +46,7 @@ public class UrlMatchAccessDecisionManager implements AccessDecisionManager {
 
         boolean hasPerm = false;
 
+        // request请求路径和httpMethod 和权限列表比对。
         for (GrantedAuthority authority : authorities) {
             if (!(authority instanceof UrlGrantedAuthority))
                 continue;

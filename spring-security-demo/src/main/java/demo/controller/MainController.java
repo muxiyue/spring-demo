@@ -40,6 +40,11 @@ public class MainController {
 		return "user/index";
 	}
 
+	@RequestMapping("/admin/index")
+	public String adminIndex() {
+		return "admin/index";
+	}
+
 	@RequestMapping("/login")
 	public String login() {
 		return "login";

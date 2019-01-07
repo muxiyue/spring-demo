@@ -2,7 +2,6 @@ package demo.filter;
 
 import demo.model.LoginToken;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
-import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
@@ -12,28 +11,33 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Created by fp295 on 2018/6/16.
- * 验证码登陆：
- *       post: /phoneLogin?phone=13000000000&verifyCode=1000
+ *
+ * @Description: 自定义filter，用来筛选出来想要的登录方式。
+ *
+ * @auther: csp
+ * @date:  2019/1/7 下午6:27
+ *
  */
 public class MyTokenAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
 
     private static final String SPRING_SECURITY_RESTFUL_TOKEN = "token";
 
-    private static final String SPRING_SECURITY_RESTFUL_LOGIN_URL = "/tokenLogin";
+    public static final String SPRING_SECURITY_RESTFUL_LOGIN_URL = "/tokenLogin";
     private boolean postOnly = true;
 
+    // 请求路径声明，url不能被权限拦截。
+    // 会根据AntPathRequestMatcher 筛选请求，符合条件的才会认为有效
     public MyTokenAuthenticationFilter() {
-        super(new AntPathRequestMatcher(SPRING_SECURITY_RESTFUL_LOGIN_URL, "POST"));
+        super(new AntPathRequestMatcher(SPRING_SECURITY_RESTFUL_LOGIN_URL, null));
     }
 
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
-        if (postOnly && !request.getMethod().equals("POST")) {
-            throw new AuthenticationServiceException(
-                    "Authentication method not supported: " + request.getMethod());
-        }
+//        if (postOnly && !request.getMethod().equals("POST")) {
+//            throw new AuthenticationServiceException(
+//                    "Authentication method not supported: " + request.getMethod());
+//        }
 
         AbstractAuthenticationToken authRequest;
 
@@ -43,6 +47,8 @@ public class MyTokenAuthenticationFilter extends AbstractAuthenticationProcessin
 
         // Allow subclasses to set the "details" property
         setDetails(request, authRequest);
+
+        // 根据AuthenticationManager校验具体的请求，实际的登录验证触发。
         return this.getAuthenticationManager().authenticate(authRequest);
     }
 

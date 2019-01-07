@@ -11,7 +11,10 @@
 <p>Example user: user / password</p>
 <p th:if="${loginError}" class="error">Wrong user or password</p>
 
-<p th:if="${loginTokenError}" class="error">Wrong token</p>
+<p th:if="${loginTokenError}" class="error">
+    Wrong token
+    please login like http://127.0.0.1:9999/tokenLogin?token=loginToken_user
+</p>
 
 <form th:action="@{/login}" method="post">
     <label for="username">Username</label>:

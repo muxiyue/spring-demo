@@ -1,13 +1,31 @@
-This project is a sample of a client application with OAuth2 single
-sign on using Spring Cloud (in Java - there is a Groovy sample in the
-"demo" directory at https://github.com/spring-cloud-samples/scripts).
+spring security demo
+# 简介：
+> spring security主要分为两部分，认证(authentication)和授权(authority)。
 
-You can run the app locally with the "authserver" app from https://github.com/spring-cloud-samples/ (running on localhost:8080/uaa), or against Github as an auth server by using the "github" profile (run it with `-Dspring.profiles.active=github`).
+> 认证：
 
-It should also work out of the box on Cloud Foundry if you create a user provided service called "sso" pointing to the UAA, e.g.
+[认证说明链接](https://blog.csdn.net/qq_30062125/article/details/86031593)
 
-```
-$ cf create-user-provided-service sso -p '{"userInfoUri":"https://uaa.run.pivotal.io/userinfo", "tokenUri":"https://login.run.pivotal.io/oauth/token", "authorizationUri":"https://login.run.pivotal.io/oauth/authorize", "clientId":"[acme]", "clientSecret":"[secret]"}'
-```
+1. 用户名密码登录：
 
-where `[client]` and `[secret]` are the credentials of a registered client that is 
+http://127.0.0.1:9999/
+
+admin 123456
+user 123456
+
+2. token登录：
+
+user登录：
+http://127.0.0.1:9999/tokenLogin?token=loginToken_user
+admin登录：
+http://127.0.0.1:9999/tokenLogin?token=loginToken_admin
+
+
+> 授权：
+
+[授权说明链接](https://blog.csdn.net/qq_30062125/article/details/86031713)
+
+> 自定义AuthenticationProvider，一个authenticationManager包含多个AuthenticationProvider。通过supports方法控制请求是否走到该逻辑。
+
+user 通过角色授权（ROLE）
+admin 通过自定义投票项UrlMatchVoter授权
