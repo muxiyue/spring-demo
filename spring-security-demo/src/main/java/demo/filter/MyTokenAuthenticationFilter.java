@@ -1,6 +1,6 @@
 package demo.filter;
 
-import demo.model.LoginToken;
+import demo.common.model.LoginToken;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;

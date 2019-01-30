@@ -1,6 +1,6 @@
-package demo.service;
+package demo.common.service;
 
-import demo.model.UrlGrantedAuthority;
+import demo.common.model.UrlGrantedAuthority;
 import org.springframework.security.access.AccessDecisionVoter;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.core.Authentication;

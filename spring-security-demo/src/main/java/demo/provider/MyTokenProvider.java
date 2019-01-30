@@ -1,6 +1,6 @@
 package demo.provider;
 
-import demo.model.LoginToken;
+import demo.common.model.LoginToken;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;

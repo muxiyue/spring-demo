@@ -1,6 +1,6 @@
 package demo.config;
 
-import demo.model.UrlGrantedAuthority;
+import demo.common.model.UrlGrantedAuthority;
 import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.ConfigAttribute;

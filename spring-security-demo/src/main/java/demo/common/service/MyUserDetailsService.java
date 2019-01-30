@@ -1,6 +1,6 @@
-package demo.service;
+package demo.common.service;
 
-import demo.model.UrlGrantedAuthority;
+import demo.common.model.UrlGrantedAuthority;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.DisabledException;

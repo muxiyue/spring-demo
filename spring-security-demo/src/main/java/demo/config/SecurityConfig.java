@@ -2,7 +2,7 @@ package demo.config;
 
 import demo.filter.MyTokenAuthenticationFilter;
 import demo.provider.MyTokenProvider;
-import demo.service.UrlMatchVoter;
+import demo.common.service.UrlMatchVoter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.access.AccessDecisionManager;
