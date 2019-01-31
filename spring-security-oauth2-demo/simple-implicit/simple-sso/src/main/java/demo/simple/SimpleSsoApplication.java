@@ -51,9 +51,9 @@ public class SimpleSsoApplication extends WebMvcConfigurerAdapter {
 
 	@Configuration
 	@Order(ManagementServerProperties.ACCESS_OVERRIDE_ORDER)
-//	@Order(-1) // 如果优先级在AuthorizationServerSecurity之前，则走不到AuthorizationServerSecurityfilter中。
+	//	@Order(-1) // 如果优先级在AuthorizationServerSecurity之前，则走不到AuthorizationServerSecurityfilter中。
 	protected static class LoginConfig extends WebSecurityConfigurerAdapter {
-		
+
 		@Autowired
 		private AuthenticationManager authenticationManager;
 
@@ -63,8 +63,8 @@ public class SimpleSsoApplication extends WebMvcConfigurerAdapter {
 			http.formLogin().loginPage("/login")
 				.permitAll().and()
 				.authorizeRequests()
-					.anyRequest().authenticated().and().cors().and().csrf().disable()
-			;
+				.anyRequest().authenticated().and().cors().and().csrf().disable()
+				.logout().logoutUrl("/logout");
 
 
 		}

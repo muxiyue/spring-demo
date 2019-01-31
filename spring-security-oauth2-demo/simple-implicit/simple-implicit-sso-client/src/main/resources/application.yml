@@ -40,10 +40,11 @@ security:
 
       accessTokenUri: http://localhost:8080/uaa/oauth/token
       userAuthorizationUri: http://localhost:8080/uaa/oauth/authorize
+#      sso登出url
+      ssoLogoutUri: http://localhost:8080/uaa/logout
 #      userAuthorizationUri: http://localhost:8080/uaa/login
       clientId: client_id
       clientSecret: client_secret
-      pre-established-redirect-uri:
     resource:
       jwt:
         keyValue: |

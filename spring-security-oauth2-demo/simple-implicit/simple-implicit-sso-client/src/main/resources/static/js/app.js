@@ -23,12 +23,13 @@ angular.module('sso', [ 'ngRoute', 'ngResource' ]).config(
 		});
 	}
 	$scope.logout = function() {
-		$http.post('/dashboard/logout', {}).success(function() {
+		// $http.post('/dashboard/logout', {}).success(function() {
 			delete $scope.user;
 			$scope.authenticated = false;
 			// Force reload of home page to reset all state after logout
 			$window.location.hash = '';
-		});
+		// });
+        window.location.href = "/dashboard/logout";
 	};
 }).controller('home', function() {
 }).controller('dashboard', function($scope, $resource) {

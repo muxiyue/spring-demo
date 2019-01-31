@@ -58,6 +58,7 @@ public class MyImplicitAccessTokenProvider extends ImplicitAccessTokenProvider {
             }
 
             // ... but if it doesn't then capture the request parameters for the redirect
+            // 最终在 OAuth2ClientContextFilter 中处理跳转。
             throw new UserRedirectRequiredException(resource.getUserAuthorizationUri(), paramMap);
 
     }

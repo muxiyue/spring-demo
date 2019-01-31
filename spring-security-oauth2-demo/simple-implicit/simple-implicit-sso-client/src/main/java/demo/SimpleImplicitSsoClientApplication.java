@@ -1,5 +1,6 @@
 package demo;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
@@ -44,6 +45,8 @@ public class SimpleImplicitSsoClientApplication {
 		return user;
 	}
 
+
+
 	public static void main(String[] args) {
 		ConfigurableApplicationContext ctx = SpringApplication.run(SimpleImplicitSsoClientApplication.class, args);
 	}
@@ -64,6 +67,9 @@ public class SimpleImplicitSsoClientApplication {
 	@EnableOAuth2Sso
 	public static class LoginConfigurer extends WebSecurityConfigurerAdapter {
 
+		@Value("${security.oauth2.client.ssoLogoutUri}")
+		private String ssoLogoutUrl;
+
 		// 这个地方的url 判断是否登录 还是根据session会话保持来的（逻辑可见SecurityContextPersistenceFilter，
 		// 可以通过重写SecurityContextRepository实现外部回话保持。）
 		@Override
@@ -71,6 +77,8 @@ public class SimpleImplicitSsoClientApplication {
 			// 拦截多个请求，放行其他的。
 			List<RequestMatcher> matchers = new ArrayList<RequestMatcher>();
 			matchers.add(new AntPathRequestMatcher("/dashboard/login"));
+			// 退出逻辑，可以自定义处理。这里就简单清除掉token，跳转到sso登出接口
+			matchers.add(new AntPathRequestMatcher("/dashboard/logout"));
 
 			http.requestMatcher(new OrRequestMatcher(matchers)).authorizeRequests()
 					.anyRequest().authenticated()
@@ -78,8 +86,7 @@ public class SimpleImplicitSsoClientApplication {
 					.csrf().disable()
 					.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER).and()
                     .cors().and()
-					.logout().logoutUrl("/dashboard/logout").permitAll()
-					.logoutSuccessUrl("/").permitAll();
+					.logout().logoutSuccessUrl(ssoLogoutUrl).deleteCookies("accessToken").logoutUrl("/dashboard/logout").permitAll();
 		}
 
 

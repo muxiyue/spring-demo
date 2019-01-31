@@ -17,7 +17,7 @@ import java.util.List;
 
 /**
  *
- * @Description: 用户信息查询逻辑，这里token认证和用户名登录使用同一个service
+ * @Description: 用户信息查询逻辑
  *
  * @auther: csp
  * @date:  2019/1/7 下午9:06
