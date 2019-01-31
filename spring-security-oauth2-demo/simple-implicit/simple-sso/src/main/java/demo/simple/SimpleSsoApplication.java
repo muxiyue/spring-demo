@@ -48,6 +48,10 @@ public class SimpleSsoApplication extends WebMvcConfigurerAdapter {
 	}
 
 
+	@Bean
+	public MyUserDetailsService myUserDetailsService() {
+		return new MyUserDetailsService();
+	}
 
 	@Configuration
 	@Order(ManagementServerProperties.ACCESS_OVERRIDE_ORDER)
@@ -91,12 +95,6 @@ public class SimpleSsoApplication extends WebMvcConfigurerAdapter {
 			web.ignoring().antMatchers(HttpMethod.GET, "/login").antMatchers(HttpMethod.OPTIONS, "/oauth/**").antMatchers("/login-error2","/css/**","/info","/health","/hystrix.stream");
 		}
 
-
-		@Bean
-		public MyUserDetailsService myUserDetailsService() {
-			return new MyUserDetailsService();
-		}
-
 	}
 
 	// 处理oauth2相关。
@@ -106,6 +104,9 @@ public class SimpleSsoApplication extends WebMvcConfigurerAdapter {
 
 		@Autowired
 		private AuthenticationManager authenticationManager;
+
+		@Autowired
+		private MyUserDetailsService myUserDetailsService;
 
 
 
@@ -127,13 +128,19 @@ public class SimpleSsoApplication extends WebMvcConfigurerAdapter {
 					.withClient(SsoContants.DEFAULT_CLIENT_ID).autoApprove(true)
 					.secret(SsoContants.DEFAULT_CLIENT_SECRET)
 					.authorizedGrantTypes("implicit", "authorization_code", "refresh_token",
-							"password").scopes("openid");
+							"password","client_credentials").scopes("openid").and()
+					.withClient("client2").autoApprove(false)
+					.secret("client2")
+					.authorizedGrantTypes("implicit", "authorization_code", "refresh_token",
+						"password","client_credentials").scopes("openid");
 		}
 
 		@Override
 		public void configure(AuthorizationServerEndpointsConfigurer endpoints)
 				throws Exception {
 			endpoints.authenticationManager(authenticationManager)
+				// refresh_token 需要使用。
+				.userDetailsService(myUserDetailsService)
 				.accessTokenConverter(
 					jwtAccessTokenConverter());
 		}

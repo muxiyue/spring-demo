@@ -4,3 +4,6 @@
 -> sso 判断未登录（默认 session 控制） -> 跳转到sso登录界面 -> 登录成功，拿到上一次url地址（默认从session中拿），跳转地址 ->
 生成token （这里用的是jwt rsa token），跳转到应用url（这个地方，demo中写死为setCookie.html)-> 设置 token cookie
 -> 请求其他页面 带 token，自动解析 （这里用的是jwt rsa token）
+
+# 博文路径：
+https://blog.csdn.net/qq_30062125/article/details/86712329
