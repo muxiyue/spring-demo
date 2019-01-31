@@ -76,6 +76,7 @@ public class ResourceController {
             resources.resourceId(this.resource.getResourceId());
             // 使用自带的，支持从cookie header parameter attribute 4中方式获取token。
             resources.tokenExtractor(new MyBearerTokenExtractor());
+            // 未登录，直接跳转到 登录页面，走 token 申请逻辑。
             resources.authenticationEntryPoint(oAuth2AuthenticationEntryPoint);
             // 资源403 定制
             resources.accessDeniedHandler(new MyOAuth2AccessDeniedHandler());
