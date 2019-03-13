@@ -130,7 +130,7 @@
 		</repository>
 
 		<repository>
-			<id>hefei_wondertek_repo</id>
+			<id>hefei_repo</id>
 			<url>http://60.174.236.108:9084/nexus/content/groups/product</url>
 			<snapshots>
 				<updatePolicy>never</updatePolicy>
@@ -181,7 +181,7 @@
 		</pluginRepository>
 
 		<pluginRepository>
-			<id>hefei_wondertek_repo</id>
+			<id>hefei_repo</id>
 			<url>http://60.174.236.108:9084/nexus/content/groups/product</url>
 			<snapshots>
 				<updatePolicy>never</updatePolicy>
